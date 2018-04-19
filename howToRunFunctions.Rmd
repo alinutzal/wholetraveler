@@ -1,0 +1,108 @@
+---
+title: "t-SNE Experiments"
+output: html_notebook
+---
+
+Data side:
+(initial) 1034 obs for original distance matrix and clustering (gap/no gap, nacost 0/2) 
+From readFile.R file 
+reads the input data from the ./data/input/ directory and saves the following .RData Files
+sequences.RData - TraMineR sequences filesGap.seq and filesNoGap.seq
+age.RData, gender.RData - age and gender
+distances.RData - the OM matrix for all 12 cases
+in ./data directory
+```{r}
+devtools::load_all("C:/Users/AlinaLazar/Documents/__18spring/research/jdiq/wholeTraveler")
+#devtools::install("C:/Users/AlinaLazar/Documents/__18spring/research/jdiq/wholeTraveler")
+#library(wholeTraveler))
+data(package="wholeTraveler")
+
+```
+
+
+```{r}
+pathI = paste0(system.file(package = "wholeTraveler"), "/extdata/input/")
+pathO <- paste0(system.file(package = "wholeTraveler"), "/extdata/output/")
+readInputData(pathI,pathO)
+```
+From clusteringAssignmentInitial.R
+save cluster assignments for k = 2,3,4,5 – to ./data/clusterAssignInitial/
+```{r}
+pathO <- paste0(system.file(package = "wholeTraveler"), "/extdata/output/clusterAssignInitial/")
+clustAssigInitial(mcdist.om1,pathO)
+```
+
+(tsne) 1034 obs for tsne transformation, "after tSNE" distance matrix and clustering --->
+save after tsne distance matrix tsneDistances.RData
+save cluster assignment for k = 2,3,4,5 – to ./data/clusterAssignTsne/
+```{r}
+pathI <- paste0(system.file(package = "wholeTraveler"), "/extdata/input/tsnePy500/")
+pathO <- paste0(system.file(package = "wholeTraveler"), "/extdata/output/clusterAssigTsnePy500/")
+inputFile<-paste0(pathI,"tsneResults30.RData")
+load(inputFile)
+clustAssigTsne(disttsne,pathO)
+```
+
+
+
+
+Figures:
+1.	sequence plots (distribution and individual) for "initial" and "tsne"
+```{r}
+pathI<-paste0(system.file(package = "wholeTraveler"), "/extdata/output/")
+pathP<-"../plots/tsnePy500/SeqPlots/"
+allClusterSeqPlots(pathI,pathP,2,5)
+pathP<-"../plots/tsnePy500/domainSeqPlots/"
+allDomainClustSeqPlots(pathI,pathP,2,5)
+```
+
+2.	scatter plots of 12 experiments using kPCA, MDS, SE, and tSNE (perplexity = 30), color code by "initial" cluster assignment (k=4)
+```{r}
+path1 <- paste0(system.file(package = "wholeTraveler"), "/extdata/output/clusterAssignInitial/")
+path2 <- paste0(system.file(package = "wholeTraveler"), "/extdata/input/dimRed/")
+pathO <- "../plots/scatterPlotsDimRed/"
+scatterPlotDimRed(path1,path2,pathO)
+
+```
+
+3.	scatter plots of hyperparameter choices for tSNE (perplexity = 10~ 100); color code by "initial" cluster assignment (k=4). 3 rounds tsneR 	tsnePy500		tsnePY1000
+```{r}
+path1 <- paste0(system.file(package = "wholeTraveler"), "/extdata/output/clusterAssignInitial/")
+path2 <- paste0(system.file(package = "wholeTraveler"), "/extdata/input/tsnePy500/")
+pathO <- "../plots/scatterPlotsPerplexity/"
+scatterPlotPerplexity(path1,path2,pathO)
+```
+
+4.	scatter plots of "initial" + "tsne" cluster assignments (k = 2, 3, 4, 5), using perplexity = 30
+```{r}
+path1 <- paste0(system.file(package = "wholeTraveler"), "/extdata/output/clusterAssignInitial/")
+path2 <- paste0(system.file(package = "wholeTraveler"), "/extdata/output/clusterAssignTsnePy500/")
+path3 <- paste0(system.file(package = "wholeTraveler"), "/extdata/input/TsnePy500/")
+pathO <- "../plots/scatterPlotsTsne/"
+scatterPlotsTsne(path1,path2,path3,pathO)
+
+```
+
+5.	scatter plots with age (and most frequent state) brush + "initial" cluster assignment, using perplexity = 30
+```{r}
+
+```
+
+6.	age bar plots (initial, and tsne)
+```{r}
+
+```
+
+7.	for each of the NAcost+gap case, color code the binary and nominal scatter plot by combined "initial" cluster assignment; using perplexity = 30.
+```{r}
+path1 <- paste0(system.file(package = "wholeTraveler"), "/extdata/output/clusterAssignInitial/")
+path2 <- paste0(system.file(package = "wholeTraveler"), "/extdata/input/tsnePy500/")
+pathO <- "../plots/scatterPlotsPerplexity/"
+scatterPlotPerplexityCombined(path1,path2,pathO)
+```
+
+8.	asw and pbc plots (done already, no need to change).
+```{r}
+
+```
+

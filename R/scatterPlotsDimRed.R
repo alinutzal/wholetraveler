@@ -1,10 +1,10 @@
-library(ggplot2)
-library(gridExtra)
-library(grid)
-library(lattice)
-library(kernlab)
-library(tsne)
-library(Rtsne)
+#library(ggplot2)
+#library(gridExtra)
+#library(grid)
+#library(lattice)
+#library(kernlab)
+#library(tsne)
+#library(Rtsne)
 #library(dimRed)
 
 pm<-function(method,lb,distM,clustAssign) {
@@ -85,7 +85,7 @@ scatterPlotDimRed<-function(path1, path2, pathO) {
     ggsave(filename, ml, width=15, height=16)
 }
 
-#path1 <- "./inst/extdata/output/clusterAssignInitial/"
-#path2 <- "./inst/extdata/input/dimRed/"
-#pathO <- "./plots/scatterPlotsDimRed/"
-#scatterPlotDimRed(path1,path2,pathO)
+path1 <- "./inst/extdata/output/clusterAssignInitial/"
+path2 <- "./inst/extdata/input/dimRed/"
+pathO <- "./plots/scatterPlotsDimRed/"
+scatterPlotDimRed(path1,path2,pathO)

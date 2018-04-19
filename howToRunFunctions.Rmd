@@ -12,23 +12,23 @@ age.RData, gender.RData - age and gender
 distances.RData - the OM matrix for all 12 cases
 in ./data directory
 ```{r}
-devtools::load_all("C:/Users/AlinaLazar/Documents/__18spring/research/jdiq/wholeTraveler")
+devtools::load_all("C:/Users/AlinaLazar/Documents/__18spring/research/jdiq/wholetraveler")
 #devtools::install("C:/Users/AlinaLazar/Documents/__18spring/research/jdiq/wholeTraveler")
 #library(wholeTraveler))
-data(package="wholeTraveler")
+data(package="wholetraveler")
 
 ```
 
 
 ```{r}
-pathI = paste0(system.file(package = "wholeTraveler"), "/extdata/input/")
-pathO <- paste0(system.file(package = "wholeTraveler"), "/extdata/output/")
+pathI = paste0(system.file(package = "wholetraveler"), "/extdata/input/")
+pathO <- paste0(system.file(package = "wholetraveler"), "/extdata/output/")
 readInputData(pathI,pathO)
 ```
 From clusteringAssignmentInitial.R
 save cluster assignments for k = 2,3,4,5 – to ./data/clusterAssignInitial/
 ```{r}
-pathO <- paste0(system.file(package = "wholeTraveler"), "/extdata/output/clusterAssignInitial/")
+pathO <- paste0(system.file(package = "wholetraveler"), "/extdata/output/clusterAssignInitial/")
 clustAssigInitial(mcdist.om1,pathO)
 ```
 
@@ -36,9 +36,9 @@ clustAssigInitial(mcdist.om1,pathO)
 save after tsne distance matrix tsneDistances.RData
 save cluster assignment for k = 2,3,4,5 – to ./data/clusterAssignTsne/
 ```{r}
-pathI <- paste0(system.file(package = "wholeTraveler"), "/extdata/input/tsnePy500/")
-pathO <- paste0(system.file(package = "wholeTraveler"), "/extdata/output/clusterAssigTsnePy500/")
-inputFile<-paste0(pathI,"tsneResults30.RData")
+pathI <- paste0(system.file(package = "wholetraveler"), "/extdata/input/tsnePy1000/")
+pathO <- paste0(system.file(package = "wholetraveler"), "/extdata/output/clusterAssigTsnePy1000/")
+inputFile<-paste0(pathI,"tsneResults90.RData")
 load(inputFile)
 clustAssigTsne(disttsne,pathO)
 ```
@@ -49,36 +49,45 @@ clustAssigTsne(disttsne,pathO)
 Figures:
 1.	sequence plots (distribution and individual) for "initial" and "tsne"
 ```{r}
-pathI<-paste0(system.file(package = "wholeTraveler"), "/extdata/output/")
-pathP<-"../plots/tsnePy500/SeqPlots/"
+pathI<-paste0(system.file(package = "wholetraveler"), "/extdata/output/")
+pathP<-"./plots/tsnePy1000/seqPlots/"
+ifelse(!dir.exists(file.path(pathP)), dir.create(file.path(pathP),recursive=TRUE), FALSE)
 allClusterSeqPlots(pathI,pathP,2,5)
-pathP<-"../plots/tsnePy500/domainSeqPlots/"
+```
+
+```{r}
+pathI<-paste0(system.file(package = "wholetraveler"), "/extdata/output/")
+pathP<-"./plots/tsnePy1000/domainSeqPlots/"
+ifelse(!dir.exists(file.path(pathP)), dir.create(file.path(pathP),recursive=TRUE), FALSE)
 allDomainClustSeqPlots(pathI,pathP,2,5)
 ```
 
-2.	scatter plots of 12 experiments using kPCA, MDS, SE, and tSNE (perplexity = 30), color code by "initial" cluster assignment (k=4)
+2.	scatter plots of 12 experiments using kPCA, MDS, SE, and tSNE (perplexity = 90, max_iter=1000), color code by "initial" cluster assignment (k=4)
 ```{r}
-path1 <- paste0(system.file(package = "wholeTraveler"), "/extdata/output/clusterAssignInitial/")
-path2 <- paste0(system.file(package = "wholeTraveler"), "/extdata/input/dimRed/")
-pathO <- "../plots/scatterPlotsDimRed/"
+path1 <- paste0(system.file(package = "wholetraveler"), "/extdata/output/clusterAssignInitial/")
+path2 <- paste0(system.file(package = "wholetraveler"), "/extdata/input/dimRed/")
+pathO <- "./plots/scatterPlotsDimRed/"
+ifelse(!dir.exists(file.path(pathO)), dir.create(file.path(pathO),recursive=TRUE), FALSE)
 scatterPlotDimRed(path1,path2,pathO)
 
 ```
 
 3.	scatter plots of hyperparameter choices for tSNE (perplexity = 10~ 100); color code by "initial" cluster assignment (k=4). 3 rounds tsneR 	tsnePy500		tsnePY1000
 ```{r}
-path1 <- paste0(system.file(package = "wholeTraveler"), "/extdata/output/clusterAssignInitial/")
-path2 <- paste0(system.file(package = "wholeTraveler"), "/extdata/input/tsnePy500/")
-pathO <- "../plots/scatterPlotsPerplexity/"
+path1 <- paste0(system.file(package = "wholetraveler"), "/extdata/output/clusterAssignInitial/")
+path2 <- paste0(system.file(package = "wholetraveler"), "/extdata/input/tsnePy1000/")
+pathO <- "./plots/scatterPlotsPerplexity/"
+ifelse(!dir.exists(file.path(pathO)), dir.create(file.path(pathO),recursive=TRUE), FALSE)
 scatterPlotPerplexity(path1,path2,pathO)
 ```
 
 4.	scatter plots of "initial" + "tsne" cluster assignments (k = 2, 3, 4, 5), using perplexity = 30
 ```{r}
-path1 <- paste0(system.file(package = "wholeTraveler"), "/extdata/output/clusterAssignInitial/")
-path2 <- paste0(system.file(package = "wholeTraveler"), "/extdata/output/clusterAssignTsnePy500/")
-path3 <- paste0(system.file(package = "wholeTraveler"), "/extdata/input/TsnePy500/")
-pathO <- "../plots/scatterPlotsTsne/"
+path1 <- paste0(system.file(package = "wholetraveler"), "/extdata/output/clusterAssignInitial/")
+path2 <- paste0(system.file(package = "wholetraveler"), "/extdata/output/clusterAssignTsnePy500/")
+path3 <- paste0(system.file(package = "wholetraveler"), "/extdata/input/TsnePy500/")
+pathO <- "./plots/scatterPlotsTsne/"
+ifelse(!dir.exists(file.path(pathO)), dir.create(file.path(pathO),recursive=TRUE), FALSE)
 scatterPlotsTsne(path1,path2,path3,pathO)
 
 ```
@@ -95,8 +104,8 @@ scatterPlotsTsne(path1,path2,path3,pathO)
 
 7.	for each of the NAcost+gap case, color code the binary and nominal scatter plot by combined "initial" cluster assignment; using perplexity = 30.
 ```{r}
-path1 <- paste0(system.file(package = "wholeTraveler"), "/extdata/output/clusterAssignInitial/")
-path2 <- paste0(system.file(package = "wholeTraveler"), "/extdata/input/tsnePy500/")
+path1 <- paste0(system.file(package = "wholetraveler"), "/extdata/output/clusterAssignInitial/")
+path2 <- paste0(system.file(package = "wholetraveler"), "/extdata/input/tsnePy500/")
 pathO <- "../plots/scatterPlotsPerplexity/"
 scatterPlotPerplexityCombined(path1,path2,pathO)
 ```

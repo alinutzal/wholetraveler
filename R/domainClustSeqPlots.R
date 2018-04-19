@@ -25,7 +25,9 @@ domainSeqPlot<- function(var2, lb, k, p, ini) {
     "nominal.gap.na0","nominal.gap.na2",
     "nominal.nogap.na0","nominal.nogap.na2"
   )
-
+  fileP<-paste0(pathP,ini,"/")
+  ifelse(!dir.exists(file.path(fileP)), dir.create(file.path(fileP)), FALSE)
+  
   filename<-paste0(p,ini,"/",labelsshort[match(lb,labels)],".pdf")
   pdf(filename,width = 11, height = 8.5,onefile=T)
   #load(file="./data/sequences.RData")
@@ -144,7 +146,7 @@ domainClustSeqPlots <- function(numClust,pathI,pathP,initial=TRUE,tsne=TRUE) {
     plotsm<-mapply(domainSeqPlot,var2=cl.wardCluster,lb=labels, MoreArgs=list(k=numClust,p=pathP,"initial"))
   }
   if (tsne) {
-    filename<-paste0(pathI,"clusterAssignTsnePy500/clusterAssignmentTsne",numClust,".RData")
+    filename<-paste0(pathI,"clusterAssignTsnePy1000/clusterAssignmentTsne",numClust,".RData")
     load(file=filename)
     plotsm<-mapply(domainSeqPlot,var2=cl.wardCluster_tsne,lb=labels, MoreArgs=list(k=numClust,p=pathP,"tsne"))
   }

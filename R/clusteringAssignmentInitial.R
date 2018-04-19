@@ -10,7 +10,7 @@ clusterSave <- function(numClust,wardCluster,path) {
     "nominal NoGap NAcost=0","nominal NoGap NAcost=2"
   )
   cl.wardCluster<-lapply(wardCluster,cutree, k=numClust)
-
+  ifelse(!dir.exists(file.path(path)), dir.create(file.path(path)), FALSE)
   filename<-paste0(path,"clusterAssignmentInitial",numClust,".RData")
   save(cl.wardCluster,file=filename)
 }

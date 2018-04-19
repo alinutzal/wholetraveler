@@ -64,6 +64,8 @@ save(filesGap.seq,filesNoGap.seq,file=dataFile)
 ## Using transition rates to compute substitution costs on each channel
 mcdist.om1<-mapply(seqdistmc, channels=dataChannels, sm=smList, miss.cost=naCost,
                    MoreArgs=list(method="OM",with.missing = T,norm="none"),SIMPLIFY = FALSE)
+
+ifelse(!dir.exists(file.path(pathOutput)), dir.create(file.path(pathOutput)), FALSE)
 dataFile<-paste0(pathOutput,"distances.RData")
 save(mcdist.om1,file=dataFile)
 

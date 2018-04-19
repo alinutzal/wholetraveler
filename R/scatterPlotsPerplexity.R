@@ -92,7 +92,7 @@ scatterPlotPerplexityCombined<-function(path1, path2, pathO) {
 
   filename<-paste0(path1,"clusterAssignmentInitial",numClust,".RData")
   load(file=filename)
-  perplexity="30"
+  perplexity="90"
   filename<-paste0(path2,"tsneResults",perplexity,".RData")
   load(file=filename)
 
@@ -122,7 +122,7 @@ scatterPlotPerplexityCombined<-function(path1, path2, pathO) {
   dev.off()
 }
 
-path1 <- "./inst/extdata/output/clusterAssignInitial/"
-path2 <- "./inst/extdata/input/tsnePy500/"
-pathO <- "./plots/scatterPlotsPerplexity/"
-scatterPlotPerplexity(path1,path2,pathO)
+#path1 <- "./inst/extdata/output/clusterAssignInitial/"
+#path2 <- "./inst/extdata/input/tsnePy500/"
+#pathO <- "./plots/scatterPlotsPerplexity/"
+#scatterPlotPerplexity(path1,path2,pathO)

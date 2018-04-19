@@ -30,7 +30,7 @@ pm<-function(method,lb,distM,clustAssign) {
 }
 
 plotRow<-function(l,d,c) {
- methods = c('Kernel PCA', 'MDS', 'SE', 't-SNE')
+ methods = c('Kernel PCA', 'SE', 'MDS','t-SNE')
  pl<-lapply(methods, pm, lb=l, distM=data.frame(d), clustAssign=c)
  return(pl)
 }
@@ -50,7 +50,7 @@ scatterPlotDimRed<-function(path1, path2, pathO) {
 
     filename<-paste0(path1,"clusterAssignmentInitial",numClust,".RData")
     load(file=filename)
-    perplexity="30"
+    perplexity="90"
     filename<-paste0(path2,"tsneResults",perplexity,".RData")
     load(file=filename)
     #dist1<-disttsne
@@ -85,7 +85,7 @@ scatterPlotDimRed<-function(path1, path2, pathO) {
     ggsave(filename, ml, width=15, height=16)
 }
 
-path1 <- "./inst/extdata/output/clusterAssignInitial/"
-path2 <- "./inst/extdata/input/dimRed/"
-pathO <- "./plots/scatterPlotsDimRed/"
-scatterPlotDimRed(path1,path2,pathO)
+#path1 <- "./inst/extdata/output/clusterAssignInitial/"
+#path2 <- "./inst/extdata/input/dimRed/"
+#pathO <- "./plots/scatterPlotsDimRed/"
+#scatterPlotDimRed(path1,path2,pathO)

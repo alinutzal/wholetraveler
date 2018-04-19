@@ -9,8 +9,8 @@ clustSaveTsne <- function(numClust,wardCluster_tsne, path) {
     "nominal NoGap NAcost=0","nominal NoGap NAcost=2"
   )
   cl.wardCluster_tsne<-lapply(wardCluster_tsne,cutree, k=numClust)
-
-  filename<-paste0(path,"clusterAssignmentTsne30",numClust,".RData")
+  ifelse(!dir.exists(file.path(path)), dir.create(file.path(path)), FALSE)
+  filename<-paste0(path,"clusterAssignmentTsne90",numClust,".RData")
   save(cl.wardCluster_tsne,file=filename)
 }
 
@@ -20,8 +20,8 @@ clustSaveTsne <- function(numClust,wardCluster_tsne, path) {
 clustAssigTsne<-function(disttsne,pathO) {
 
   tsneBasedDist<-lapply(disttsne, dist)
-
-  filename<-paste0(pathO,"tsneDistances30.RData")
+  ifelse(!dir.exists(file.path(pathO)), dir.create(file.path(pathO)), FALSE)
+  filename<-paste0(pathO,"tsneDistances90.RData")
   save(tsneBasedDist,file=filename)
 
   wardCluster_tsne <- lapply(tsneBasedDist, hclust, method="ward.D2")

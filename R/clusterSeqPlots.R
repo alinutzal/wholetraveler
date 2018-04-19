@@ -121,16 +121,23 @@ clusterSeqPlots <- function(numClust,pathI,pathP,initial=TRUE,tsne=TRUE) {
     "nominal Gap NAcost=0","nominal Gap NAcost=2",
     "nominal NoGap NAcost=0","nominal NoGap NAcost=2"
   )
+  ifelse(!dir.exists(file.path(pathI)), dir.create(file.path(pathI)), FALSE)
+  
   if (initial) {
   filename<-paste0(pathI,"clusterAssignInitial/clusterAssignmentInitial",numClust,".RData")
   load(file=filename)
+  
+  fileP<-paste0(pathP,"initial/")
+  ifelse(!dir.exists(file.path(fileP)), dir.create(file.path(fileP)), FALSE)
   pdf(paste0(pathP,"initial/seqPlotsInitial",numClust,".pdf"),width = 11, height = 8.5,onefile=T)
   plotsm<-mapply(seqPlot,var2=cl.wardCluster,lb=labels,MoreArgs=list(k=numClust))
   dev.off()
   }
   if (tsne) {
-  filename<-paste0(pathI,"clusterAssignTsnePy500/clusterAssignmentTsne",numClust,".RData")
+  filename<-paste0(pathI,"clusterAssignTsnePy1000/clusterAssignmentTsne",numClust,".RData")
   load(file=filename)
+  fileP<-paste0(pathP,"tsne/")
+  ifelse(!dir.exists(file.path(fileP)), dir.create(file.path(fileP)), FALSE)
   pdf(paste0(pathP,"tsne/seqPlotsTsne",numClust,".pdf"),width = 11, height = 8.5,onefile=T)
   plotsm<-mapply(seqPlot,var2=cl.wardCluster_tsne,lb=labels,MoreArgs=list(k=numClust))
   dev.off()

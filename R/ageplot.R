@@ -1,7 +1,8 @@
 library(dplyr)
 
 plotAges<-function(cl.mward4,lb,p) {
-
+filename<-"./data/age.RData"
+load(filename)
 clust1=which(cl.mward4==1,arr.ind = T)
 clust2=which(cl.mward4==2,arr.ind = T)
 clust3=which(cl.mward4==3,arr.ind = T)
